@@ -5,7 +5,7 @@ Original idea and development by [@Mvalenzuela](https://www.github.com/Mvalenzue
 
 This wouldn't be up here if it weren't for him 💪
 
-# Local deployment with Docker
+# Building with Docker
 
 ## Prerequisites
 
@@ -78,6 +78,21 @@ docker-compose down
 docker-compose down
 ```
 
-## Questions?
+# "Production" setup with crontab
+
+You can execute this via crontab to send you daily email digests at any desired frequency.
+
+For example, to execute the service every day at 23:59, the crontab would look like this:
+
+```
+59 23 * * * myuser docker-compose -f /home/myuser/property-finder/docker-compose.yml up
+```
+
+Just make sure the crontab user executing the service has the correct permissions and software installed (ie. Docker, Docker-Compose, Jinja2). 
+
+In my case I had to directly modify the _/etc/crontab_ file instead of executing _crontab -e_. And it was necessary to add the "myuser" user on the command to specify that the service should be started using the "mysuder" user.
+
+
+# Questions?
 
 Just ask!
