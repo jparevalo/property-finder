@@ -3,7 +3,7 @@ import requests
 import os
 import ast
 
-# PATHS
+# Constants
 PORTAL_URL = 'https://www.portalinmobiliario.com/'
 HOUSE_PATH = "casa/"
 APPARTMENT_PATH = "departamento/"
@@ -41,39 +41,26 @@ def get_bool_env(env_name):
     return ast.literal_eval(os.environ.get(env_name))
 
 def build_search_url(district):
+    # Build the search URL based on the specified criteria
     url = PORTAL_URL
-    property_type = 'SALE'
+    transaction_type = 'SALE' if get_bool_env('SALE') and not get_bool_env('RENT') else 'RENT'
+    property_type = 'HOUSE' if get_bool_env('HOUSE') and not get_bool_env('APPARTMENT') else 'APPARTMENT'
 
-    # Transaction Type
-    if get_bool_env('SALE') and not get_bool_env('RENT'):
-        url += SALE_PATH
-    elif get_bool_env('RENT') and not get_bool_env('SALE'):
-        url += RENT_PATH
-        property_type = 'RENT'
-    # Property Type
-    if get_bool_env('HOUSE') and not get_bool_env('APPARTMENT'):
-        url += HOUSE_PATH
-    elif get_bool_env('APPARTMENT') and not get_bool_env('HOUSE'):
-        url += APPARTMENT_PATH
-
-    # District
+    url += SALE_PATH if transaction_type == 'SALE' else RENT_PATH
+    url += HOUSE_PATH if property_type == 'HOUSE' else APPARTMENT_PATH
     url += district
-    
-    # Price Filter
+
     if get_bool_env('PRICE_FILTER'):
-        if get_bool_env(f'{property_type}_PRICE_UF'):
-            url += PRICE_FILTER_UF % (os.environ.get(f'MIN_{property_type}_PRICE'), os.environ.get(f'MAX_{property_type}_PRICE'))
-        else:
-            url += PRICE_FILTER % (os.environ.get(f'MIN_{property_type}_PRICE'), os.environ.get(f'MAX_{property_type}_PRICE'))
-    
-    # Bedroom Filter
+        price_filter = PRICE_FILTER_UF if get_bool_env(f'{transaction_type}_PRICE_UF') else PRICE_FILTER
+        url += price_filter % (os.environ.get(f'MIN_{transaction_type}_PRICE'), os.environ.get(f'MAX_{transaction_type}_PRICE'))
+
     if get_bool_env('BEDROOM_FILTER'):
         url += BEDROOM_FILTER % (os.environ.get('MIN_BEDROOMS'), os.environ.get('MAX_BEDROOMS'))
-    # Bathroom Filter
+
     if get_bool_env('BATHROOM_FILTER'):
         url += BATHROOM_FILTER % (os.environ.get('MIN_BATHROOMS'), os.environ.get('MAX_BATHROOMS'))
-    # Published Today
+    
     if get_bool_env('PUBLISHED_TODAY'):
         url += PUBLISHED_TODAY_PATH
-    
+
     return url
