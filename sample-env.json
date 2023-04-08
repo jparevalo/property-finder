@@ -1,0 +1,49 @@
+{
+    "service_name": "daily_properties",
+    "email": {
+        "SENDER_EMAIL": "youremail@gmail.com",
+        "SENDER_PASSWORD": "yourpassword",
+        "SMTP_SERVER": "smtp.gmail.com",
+        "SMTP_PORT": "587",
+        "RECIPIENT_EMAILS": ["samplerecipient1@mail.com", "samplerecipient2@mail.com"]
+    },
+    "threshold_ratio": 9999999999,
+    "uf_default": 35550,
+    "filters": {
+        "SALE": true,
+        "RENT": false,
+        "APPARTMENT": true,
+        "HOUSE": true,
+        "DISTRICTS": ["las-condes-metropolitana",
+            "chicureo-colina-chacabuco-metropolitana", 
+            "vitacura-metropolitana",
+            "barrio-el-golf-las-condes-santiago-metropolitana",
+            "la-dehesa-lo-barnechea-santiago-metropolitana",
+            "lo-barnechea-metropolitana",
+            "san-carlos-de-apoquindo-las-condes-santiago-metropolitana"
+        ],
+        "PRICE_FILTER": true,
+        "PRICES_SALE":{
+            "MIN": 0,
+            "MAX": 10000,
+            "UF": true
+        },
+        "PRICES_RENT":{
+            "MIN": 0,
+            "MAX": 1200000,
+            "UF": false
+        },
+        "BEDROOM_FILTER": true,
+        "BEDROOMS":{
+            "MIN": 3,
+            "MAX": 10
+        },
+        "BATHROOM_FILTER": true,
+        "BATHROOMS":{
+            "MIN": 3,
+            "MAX": 10
+        },
+        "PUBLISHED_TODAY": true
+    }
+}
+  
