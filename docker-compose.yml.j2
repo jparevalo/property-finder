@@ -1,0 +1,34 @@
+version: '3.3'
+services:
+  {{ service_name }}:
+    tty: true
+    build: .
+    ports:
+      - 5080:5000
+    environment:
+      - SENDER_EMAIL={{ email.SENDER_EMAIL }}
+      - SENDER_PASSWORD={{ email.SENDER_PASSWORD }}
+      - SMTP_SERVER={{ email.SMTP_SERVER }}
+      - SMTP_PORT={{ email.SMTP_PORT }}
+      - RECIPIENT_EMAILS={{ email.RECIPIENT_EMAILS }}
+      - THRESHOLD_RATIO={{ threshold_ratio }}
+      - UF_DEFAULT={{ uf_default }}
+      - SALE={{ filters.SALE }}
+      - RENT={{ filters.RENT }}
+      - HOUSE={{ filters.HOUSE }}
+      - APPARTMENT={{ filters.APPARTMENT }}
+      - DISTRICTS={{ filters.DISTRICTS }}
+      - PRICE_FILTER={{ filters.PRICE_FILTER }}
+      - MIN_SALE_PRICE={{ filters.PRICES_SALE.MIN }}
+      - MAX_SALE_PRICE={{ filters.PRICES_SALE.MAX }}
+      - SALE_PRICE_UF={{ filters.PRICES_SALE.UF }}
+      - MIN_RENT_PRICE={{ filters.PRICES_RENT.MIN }}
+      - MAX_RENT_PRICE={{ filters.PRICES_RENT.MAX }}
+      - RENT_PRICE_UF={{ filters.PRICES_RENT.UF }}
+      - BEDROOM_FILTER={{ filters.BEDROOM_FILTER }}
+      - MIN_BEDROOMS={{ filters.BEDROOMS.MIN }}
+      - MAX_BEDROOMS={{ filters.BEDROOMS.MAX }}
+      - BATHROOM_FILTER={{ filters.BATHROOM_FILTER }}
+      - MIN_BATHROOMS={{ filters.BATHROOMS.MIN }}
+      - MAX_BATHROOMS={{ filters.BATHROOMS.MAX }}
+      - PUBLISHED_TODAY={{ filters.PUBLISHED_TODAY }}
