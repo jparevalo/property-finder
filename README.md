@@ -69,7 +69,7 @@ By executing the _run.sh_ script, the service will build and start.
 You can run with _run.sh_ or by executing:
 
 ```
-docker-compose down
+docker-compose up
 ```
 
 ## Stop the service.
